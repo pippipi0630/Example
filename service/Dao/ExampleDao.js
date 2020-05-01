@@ -46,15 +46,14 @@ class ExampleDao {
 
   /**
    * データを作って返します
-   *  @return {Array<{date:string, machineId:Number, orderId:Number, quantity:Number}>}
+   *  @return {Array<{machineId:Number, orderId:Number, quantity:Number}>}
    */
   async GetProductLog() {
     let data = [];
 
-    for(let n = 0; n < 50; n++){
+    for(let n = 0; n < 20; n++){
       // ランダムなデータを作る
       data.push({
-        date: `2020-4-${GetRandom(1,7)}`,
         machineId: GetRandom(1,5),
         orderId: GetRandom(1,10),
         quantity: GetRandom(1,100)

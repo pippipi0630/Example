@@ -20,7 +20,7 @@ class ExpressServiceLogic {
 
   /**
    * 生産履歴
-   * @return {Array<{date:string, machineId:Number, orderId:Number, quantity:Number}>}
+   * @return {Array<{machineId:Number, orderId:Number, quantity:Number}>}
    */
   get ProductLog() {
     return this._productLog;
@@ -64,7 +64,7 @@ class ExpressServiceLogic {
     // 非同期更新
     this.dao.GetProductLog().then((data) => {
       this._productLog = data;
-      logger.Info("updated data.");
+      // logger.Info("updated data.");
     });
   }
 }

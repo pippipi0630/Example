@@ -40,10 +40,10 @@ import SummaryChart from "./components/SummaryChart";
 import AllDataTable from "./components/AllDataTable";
 
 // ホストのURL
-// const serviceAddr = location.href;
+const serviceAddr = "http://" + location.host;
 
 // デバッグ用（ホストとAPI受付port番号が異なるため）
-const serviceAddr = "http://localhost:3000";
+// const serviceAddr = "http://localhost:3000";
 
 export default {
   name: "App",

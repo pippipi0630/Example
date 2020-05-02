@@ -8,7 +8,7 @@
 import BarChart from "./BarChart.js";
 
 export default {
-  props: ["mstMachine", "productLog"],
+  props: ["mstMachine", "mstOrder", "productLog"],
   components: {
     BarChart
   },
@@ -17,19 +17,26 @@ export default {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        legend: {
-          display : false
+        layout: {
+          padding: {
+            left: 10,
+            right: 10,
+            top: 0,
+            bottom: 0
+          }
         },
         scales: {
+          xAxes: [{ stacked: true, ticks: { beginAtZero: true } }],
           yAxes: [
             {
+              stacked: true,
               scaleLabel: {
                 display: true,
                 labelString: "生産数",
                 fontSize: 12
               },
               ticks: {
-                min: 0,
+                beginAtZero: true,
                 stepSize: 10
               }
             }
@@ -44,26 +51,56 @@ export default {
       // 親コンポーネントからproductLogを変更されるたびに以下実行
 
       let labels = [];
-      let data = [];
+      let datasets = [];
+      // グラフの色
+      let colorPallet = [
+        "#4169e1",
+        "#191970",
+        "#00ffff",
+        "#008000",
+        "#00ff7f",
+        "#eee8aa",
+        "#ffa500",
+        "#8b0000",
+        "#cd5c5c",
+        "#ff69b4"
+      ];
 
       // 装置マスタをid順にソート
       let mm = this.mstMachine.sort((a, b) => a.id - b.id);
+      let mo = this.mstOrder.sort((a, b) => a.id - b.id);
 
+      // ラベル作成
       mm.forEach(machine => {
-        let pl = this.productLog.filter(x => x.machineId === machine.id);
-        if (pl.length > 0) {
-          // 合計生産数を算出
-          let total = pl.reduce((prev, curr) => prev + curr.quantity, 0);
-          data.push(total);
-        } else {
-          data.push(0);
-        }
         labels.push(machine.name);
+      });
+
+      // 装置ｘ部版ごとにデータセットを作成
+      mo.forEach(order => {
+        let data = [];
+        mm.forEach(machine => {
+          let pl = this.productLog.filter(
+            x => x.machineId === machine.id && x.orderId === order.id
+          );
+          if (pl.length > 0) {
+            // 合計生産数を算出
+            let total = pl.reduce((prev, curr) => prev + curr.quantity, 0);
+            data.push(total);
+          } else {
+            // フィルタ０件だとreduceに失敗するので別にする
+            data.push(0);
+          }
+        });
+        datasets.push({
+          label: order.name,
+          backgroundColor: colorPallet.shift(),
+          data
+        });
       });
 
       this.datacollection = {
         labels,
-        datasets: [{ data }]
+        datasets
       };
     }
   }

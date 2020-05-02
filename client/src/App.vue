@@ -1,21 +1,37 @@
 <template>
-  <div id="app">
+  <v-app>
     <v-app-bar app color="indigo" dark>
       <v-toolbar-title>Example Client</v-toolbar-title>
     </v-app-bar>
     <v-content>
       <v-container>
         <v-row justify="center">
-          <v-col cols="10">
-            <summary-chart :mst-machine="mstMachine" :product-log="productLog"></summary-chart>
+          <v-col cols="6">
+            <!-- ここは ただのスペーサ -->
           </v-col>
-          <v-col cols="10">
-            <all-data-table :product-log="productLog"></all-data-table>
+          <v-col cols="2">
+            <v-btn @click="FetchData">クリックでデータ再取得</v-btn>
+          </v-col>
+          <v-col cols="8">
+            <v-card>
+              <v-card-title>装置ごと生産数</v-card-title>
+              <summary-chart
+                :mst-machine="mstMachine"
+                :mst-order="mstOrder"
+                :product-log="productLog"
+              ></summary-chart>
+            </v-card>
+          </v-col>
+          <v-col cols="8">
+            <v-card>
+              <v-card-title>取得データ一覧</v-card-title>
+              <all-data-table :product-log="productLog"></all-data-table>
+            </v-card>
           </v-col>
         </v-row>
       </v-container>
     </v-content>
-  </div>
+  </v-app>
 </template>
 
 <script>

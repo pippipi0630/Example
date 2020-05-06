@@ -1,24 +1,109 @@
-# client
+# clientの説明
 
-## Project setup
+自分で書いているのは
+
+src/App.vue
+
+src/components/...
+
+の部分くらいです。
+
+* Vue
+* Vuetify
+* vue-chartjs
+
+というモジュールを利用しているので
+
+それぞれのREADMEも併せて参照ください。
+
+## dist
+
+ビルド後のファイル出力フォルダ
+
+下記コマンドでビルド実行
+
 ```
+npm run build
+```
+
+## node_modules
+
+外部モジュールの実体置き場
+
+触ることはない
+
+## public
+
+（Vueツールが自動生成）
+
+アイコン、画像といった
+
+public リソース置き場
+
+## src
+
+### main.js
+
+クライアントのエントリポイント
+
+（あんまり変更することはない）
+
+### App.vue
+
+画面のベースになるVueファイル
+
+これにcomponents以下に格納されている画面コンポーネントを
+
+ツギハギして画面を構成している
+
+### assets
+
+（Vueツールが自動生成）
+
+特定の画面に使用する画像ファイルを入れている
+
+### components
+
+画面を構成するパーツとなるVueファイル群
+
+### plugins
+
+クライアントのロード前に実行されるJSファイルを格納
+
+ここではVuetifyというUIのデザインフレームワーク自体を
+
+画面のロード前にVueインスタンスにロードさせている
+
+## その他
+
+### .gitignore
+
+GITで管理されたくないファイルを記載する
+
+ビルドで出力するdistフォルダ以下のファイルとか、バージョン管理しても
+
+あんまし意味ないファイルを除外
+
+### package.json
+
+利用している外部モジュールについての情報などが記載されている。
+
+```
+npm install
+// または
 yarn install
 ```
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+を実行すると、このファイルに名前が乗っている外部モジュールを全部インストールする。
 
-### Compiles and minifies for production
-```
-yarn build
-```
+### babel.config.js, vue.config.js
 
-### Lints and fixes files
-```
-yarn lint
-```
+ビルド構成情報を記載するファイル
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+ですけど、手動ではあんまり変更しません
+
+### yarn.lock
+
+利用している外部モジュールの詳細情報が記載されてるっぽい。
+
+手動ではあんまり変更も確認もしてません。
